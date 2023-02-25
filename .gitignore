@@ -1,0 +1,3 @@
+# add .env inside unified dbs
+unified dbs/.env
+unified dbs/node_modules
