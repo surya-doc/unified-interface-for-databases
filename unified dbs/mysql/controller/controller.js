@@ -132,11 +132,57 @@ const connect = async (req, res) => {
     }
 }
 
+const createDB = async (req, res) => {
+    const { database } = req.body;
+    try {
+        const query = `CREATE DATABASE ${database}`;
+        // sample query
+        // CREATE DATABASE mydb;
+        await connection.query(query, (err, result, fields) => {
+            if (err) {
+                console.log(err)
+                res.status(400).json({ message: "OOPPSS" })
+            }
+            else {
+                res.status(200).json({ result })
+            }
+        })
+    }
+    catch (err) {
+        console.log(err)
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+
+const getTables = async (req, res) => {
+    const { dbName } = req.body;
+    try {
+        const query = `SHOW TABLES FROM ${dbName}`;
+        connection.query(query, (err, result, fields) => {
+            if (err) {
+                console.log(err)
+                res.status(400).json({ message: "OOPPSS" })
+            }
+            else {
+                res.status(200).json({ result })
+            }
+        }
+        )
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+
 module.exports = {
     newDB,
     getDB,
     connectDB,
     showdbs,
     uptime,
-    connect
+    connect,
+    createDB,
+    getTables
 };

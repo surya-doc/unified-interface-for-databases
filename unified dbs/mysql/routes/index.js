@@ -9,4 +9,6 @@ router.post("/connectDB", mySQLRoutes.connectDB);
 router.post("/showdbs", mySQLRoutes.showdbs);
 router.get("/uptime", mySQLRoutes.uptime);
 router.get("/connect", mySQLRoutes.connect);
+router.post("/createDB", mySQLRoutes.createDB);
+router.post("/getTables", mySQLRoutes.getTables);
 module.exports = router;

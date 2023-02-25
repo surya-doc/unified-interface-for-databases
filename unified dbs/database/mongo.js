@@ -28,7 +28,8 @@ const saveHash = async (hash,data) => {
 
 const getHash = async (hash) => {
     try {
-        const hashValue = await Hash.find({hash:hash});
+        const hashValue = await Hash.find({ hash: hash });
+        console.log(hashValue);
         return JSON.parse(hashValue.data);
     }
     catch (err) {
