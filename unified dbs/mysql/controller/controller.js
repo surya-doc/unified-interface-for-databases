@@ -5,6 +5,20 @@ const path = require("path");
 const mysql = require("mysql")
 var connection;
 var connectData;
+var uptimeStatus;
+// const stringifyObject = (obj) => {
+//   return JSON.stringify(obj, (key, value) => {
+//     if (typeof value === 'object') {
+//       return JSON.stringify(value);
+//     }
+//     return value;
+//   });
+// };
+const sgMail = require('@sendgrid/mail');
+// const flatted = require('flatted');
+
+const safeJsonStringify = require('safe-json-stringify');
+
 // node hash
 const crypto = require("crypto");
 const { getHash } = require("../../database/mongo");
@@ -113,6 +127,7 @@ WHERE VARIABLE_NAME = 'Uptime';`;
             res.status(400).json({ message: "OOPPSS" })
         }
         else {
+            uptimeStatus=result[0].Uptime_seconds;
             res.status(200).json({ result })
         }  
     })
@@ -225,6 +240,94 @@ const createTable = async (req, res) => {
     }
 }
 
+const getReport = async (req, res) => {
+    // const report = {
+    //     connection: connection,
+    //     connectData: connectData,
+    //     uptime: uptimeStatus
+    // }
+    // stringify circuolar json
+    const host = connectData.host;
+    const user = connectData.user;
+    const password = connectData.password;
+    const database = connectData.database;
+    // const connectionStatus = stringifyObject(connection)
+// destructure connection
+    var totalDBs, totalTables, totalRows, totalColumns;;
+    await connection.query("SHOW DATABASES", (err, result, fields) => {
+        if (err) {
+            console.log(err)
+            res.status(400).json({ message: "OOPPSS" })
+        }
+        else {
+            totalDBs = result.length;
+            console.log(totalDBs)
+        }
+    })
+
+    await connection.query("SHOW TABLES", (err, result, fields) => {
+        if (err) {
+            console.log(err)
+            res.status(400).json({ message: "OOPPSS" })
+        }
+        else {
+            totalTables = result.length;
+        }
+    })
+
+    await connection.query("SELECT COUNT(*) FROM information_schema.columns", (err, result, fields) => {
+        if (err) {
+            console.log(err)
+            res.status(400).json({ message: "OOPPSS" })
+        }
+        else {
+            totalColumns = result[0]['COUNT(*)'];
+        }
+    })
+
+    await connection.query("SELECT COUNT(*) FROM information_schema.tables", (err, result, fields) => {
+        if (err) {
+            console.log(err)
+            res.status(400).json({ message: "OOPPSS" })
+        }
+        else {
+            totalRows = result[0]['COUNT(*)'];
+        }
+    })
+
+
+   
+    // const emailBody = safeJsonStringify.ensureProperties(report)
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+const msg = {
+  to: `${req.body.email}`,
+  from: 'digantabanik2000@gmail.com', // Use the email address or domain you verified above
+  subject: 'Your MYSQL report is here!',
+    text: `Here is your MYSQL report for your last logged in Database:
+    HOST: ${host}
+    USER: ${user}
+    PASSWORD: ${password}
+    DATABASE: ${database}
+
+    
+    uptime: ${uptimeStatus}
+    `,
+};
+//ES8
+(async () => {
+  try {
+    await sgMail.send(msg);
+  } catch (error) {
+    console.error(error);
+
+    if (error.response) {
+      console.error(error.response.body)
+    }
+  }
+})();
+    res.status(200).json({message: "Email sent!"})
+}
 
 module.exports = {
     newDB,
@@ -239,6 +342,7 @@ module.exports = {
     insertData,
     updateData,
     deleteData,
-    createTable
+    createTable,
+    getReport
 
 };
