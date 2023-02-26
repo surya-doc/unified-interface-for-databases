@@ -175,6 +175,56 @@ const getTables = async (req, res) => {
     }
 }
 
+const getTableData = async (req, res) => {
+    const { dbName, tableName } = req.body;
+    try {
+        const query = `SELECT * FROM ${dbName}.${tableName}`;
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+const insertData = async (req, res) => {
+    const { dbName, tableName, data } = req.body;
+    try {
+        const query = `INSERT INTO ${dbName}.${tableName} VALUES (${data})`;
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+const updateData = async (req, res) => {
+    const { dbName, tableName, data } = req.body;
+    try {
+        const query = `UPDATE ${dbName}.${tableName} SET ${data}`;
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+const deleteData = async (req, res) => {
+    const { dbName, tableName, data } = req.body;
+    try {
+        const query = `DELETE FROM ${dbName}.${tableName} WHERE ${data}`;
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
+const createTable = async (req, res) => {
+    const { dbName, tableName, data } = req.body;
+    try {
+        const query = `CREATE TABLE ${dbName}.${tableName} (${data})`;
+    }
+    catch (err) {
+        res.status(400).json({ message: "OOPPSS" })
+    }
+}
+
 
 module.exports = {
     newDB,
@@ -184,5 +234,11 @@ module.exports = {
     uptime,
     connect,
     createDB,
-    getTables
+    getTables,
+    getTableData,
+    insertData,
+    updateData,
+    deleteData,
+    createTable
+
 };

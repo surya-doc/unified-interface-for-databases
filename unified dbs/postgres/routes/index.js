@@ -11,5 +11,11 @@ router.get("/uptime", postgresSQL.uptime);
 router.get("/connect", postgresSQL.connect);
 router.post("/createDB", postgresSQL.createDB);
 router.post("/getTables", postgresSQL.showTables);
+router.post("/createTable", postgresSQL.createTable);
+router.post("/getTableData", postgresSQL.getTableData);
+router.post("/insertData", postgresSQL.insertData);
+router.post("/deleteData", postgresSQL.deleteData);
+router.post("/updateData", postgresSQL.updateData);
+
 
 module.exports = router;

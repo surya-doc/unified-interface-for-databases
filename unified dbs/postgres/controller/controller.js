@@ -118,6 +118,74 @@ const connect = async (req, res) => {
     }
 }
 
+const getTableData = async (req, res) => {
+    const { table } = req.body;
+    client.query(`SELECT * FROM ${table};`, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: "Internal Server Error" });
+            return;
+        }
+        else {
+            res.status(200).json({ data: result.rows });
+        }
+    })
+}
+
+const createTable = async (req, res) => {
+    const { table, columns } = req.body;
+    client.query(`CREATE TABLE ${table} (${columns});`, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: "Internal Server Error" });
+            return;
+        }
+        else {
+            res.status(200).json({ message: "Table created successfully" });
+        }
+    })
+}
+
+const insertData = async (req, res) => {
+    const { table, columns, values } = req.body;
+
+    client.query(`INSERT INTO ${table} (${columns}) VALUES (${values});`, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: "Internal Server Error" });
+            return;
+        }
+        else {
+            res.status(200).json({ message: "Data inserted successfully" });
+        }
+    })
+}
+
+const deleteData = async (req, res) => {
+    const { table, condition } = req.body;
+    client.query(`DELETE FROM ${table} WHERE ${condition};`, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: "Internal Server Error" });
+            return;
+        }
+        else {
+            res.status(200).json({ message: "Data deleted successfully" });
+        }
+    })
+}
+
+const updateData = async (req, res) => {
+    const { table, condition, values } = req.body;
+
+    client.query(`UPDATE ${table} SET ${values} WHERE ${condition};`, (err, result) => {
+        if (err) {
+            res.status(500).json({ message: "Internal Server Error" });
+            return;
+        }
+        else {
+            res.status(200).json({ message: "Data updated successfully" });
+        }
+    })
+}
+
+
 module.exports = {
     newDB,
     getDB,
@@ -126,5 +194,11 @@ module.exports = {
     uptime,
     connect,
     createDB,
-    showTables
+    showTables,
+    getTableData,
+    createTable,
+    insertData,
+    deleteData,
+    updateData
+    
 }
