@@ -8,6 +8,7 @@ import Topbar from "../global/Topbar";
 import Header from "../Header";
 import LineChart from "../LineChart";
 import Chart from 'chart.js';
+import Footer from "../Footer";
 
 const Dashboard = () => {
   const[uptime, setUptime] = React.useState(null);
@@ -27,14 +28,23 @@ const Dashboard = () => {
       setUptime(Object.values(uptime));
   }
 
+  async function getLink(){
+    console.log("abcd.");
+    console.log("Link.");
+    const res = await axios.get('http://localhost:5000/mysql/connect');
+    console.log(res);
+    alert('Hey this is your link: ' + res.data.connectionUrl);
+  }
+
   useEffect(() => {
       getDBs();
   }, [])
 
   return (
     <div style={{display: "flex", justifyContent: "space-between"}}>
-      <div style={{width: "20%"}}>
+      <div style={{width: "20%", backgroundColor: "#1f2a40", minHeight: "98vh"}}>
         <Sidebar />
+        <div style={{paddingLeft: "90px"}} onClick={() => getLink()}>Get Link</div>
       </div>
       <div style={{width: "78%"}}>
         <Topbar />
@@ -111,6 +121,10 @@ const Dashboard = () => {
             )
           }
         </div>
+        {/* <div style={{position: "relative", bottom: "0"}}> */}
+
+        {/* </div> */}
+        <Footer />
       </div>
     </div>
   );

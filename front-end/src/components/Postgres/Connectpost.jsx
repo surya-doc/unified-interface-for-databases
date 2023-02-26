@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import './Mysql.css'
+import './Postgres.css'
 
-function Connect() {
+function Connectpost() {
     const[host, setHost] = React.useState('')
     const[user, setUser] = React.useState('')
     const[password, setPassword] = React.useState('')
@@ -13,7 +13,7 @@ function Connect() {
     async function collectDetails(event){
         event.preventDefault();
         console.log(host, user, password, database);
-        const reply = await axios.post('http://localhost:5000/mysql/newDB', {
+        const reply = await axios.post('http://localhost:5000/postgres/newDB', {
             host: host,
             user: user,
             password: password,
@@ -21,7 +21,7 @@ function Connect() {
         })
         console.log(reply.data);
         alert(reply.data.message);
-        const res = await axios.post('http://localhost:5000/mysql/connectDB', {host:"localhost",user:"root",password:"dana@1234",database:"social_portal"});
+        const res = await axios.post('http://localhost:5000/postgres/connectDB', {host:"localhost",user:"root",password:"dana@1234",database:"social_portal"});
         console.log(res.data);
         navigate('/dashboard');
     }
@@ -38,10 +38,10 @@ function Connect() {
             <input type="text" onChange={(event) => setPassword(event.target.value)} />
             <p>Database</p>
             <input type="text" onChange={(event) => setDatabase(event.target.value)} />
-            <button type="submit" style={{margin: "20px", padding: "10px 20px", backgroundColor: "#fd8e45", border: "none", color: "white", fontWeight: "600", letterSpacing: "1px"}}>Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
   )
 }
 
-export default Connect
+export default Connectpost

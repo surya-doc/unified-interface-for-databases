@@ -4,11 +4,13 @@ import { AiFillBackward } from 'react-icons/ai'
 import './Language.css'
 import { useNavigate } from 'react-router-dom'
 import ShowOp from './ShowOp/ShowOp'
+import Showpost from './ShowOp/Showpost'
 import { Translate } from '@mui/icons-material'
 import { ImCross } from 'react-icons/im'
 
 function Language() {
-    const[show, setShow] = React.useState(true)
+    const[show, setShow] = React.useState(false)
+    const[showPost, setShowPost] = React.useState(false)
     const navigate = useNavigate();
   return (
     <div className="language__option"
@@ -66,16 +68,17 @@ function Language() {
                     width: "280px",
                     height: "280px",
                     borderRadius: "10px",
-                    margin: "0px"
+                    margin: "0px",
+                    backgroundColor: "#008bb9"
                 }}
-                onClick={() => setShow(!show)}
+                onClick={() => setShowPost(!showPost)}
                 >
                     <SiPostgresql style={{fontSize: "100px"}} />
                 </div>
-                <div className="show__options" style={{zIndex: "100", display: show ? "none" : "block", position: "absolute", top: "50%", left: "50%", transform: "Translate(-50%, -50%)"}}>
-                    <ShowOp style={{color: "#000000", backgroundColor: "red", zIndex: "999"}} />
+                <div className="show__options" style={{zIndex: "100", display: showPost ? "none" : "block", position: "absolute", top: "50%", left: "50%", transform: "Translate(-50%, -50%)"}}>
+                    <Showpost style={{color: "#000000", backgroundColor: "red", zIndex: "999"}} />
                     <div style={{zIndex: "999", cursor: "pointer", position: "absolute", padding: "10px"}}
-                onClick={() => setShow(!show)}>
+                onClick={() => setShowPost(!showPost)}>
                     <ImCross style={{color: "#141b2d", fontSize: "20px"}} />
                     </div>
                 </div>

@@ -8,6 +8,8 @@ import Language from "./components/SelectLanguage/Language";
 import ShowOp from "./components/SelectLanguage/ShowOp/ShowOp";
 import Connect from "./components/MYSQL/Connect";
 import Getdbdatas from "./components/MYSQL/Getdbdatas";
+import Connectpost from "./components/Postgres/Connectpost";
+import ShowTables from "./components/ShowTables";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -25,7 +27,9 @@ function App() {
               <Route path="/options" element={<ShowOp />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/connectinfo" element={<Connect />} />
+              <Route path="/connectinfopost" element={<Connectpost />} />
               <Route path="/getdbs" element={<Getdbdatas />} />
+              <Route path="/tables" element={<ShowTables />} />
             </Routes>
           </main>
         </div>
