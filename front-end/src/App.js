@@ -4,6 +4,10 @@ import Topbar from'./components/global/Topbar';
 import SideBar from './components/global/SideBar';
 import { Route, Routes } from "react-router-dom";
 import Dashboard from "./components/Dashboard";
+import Language from "./components/SelectLanguage/Language";
+import ShowOp from "./components/SelectLanguage/ShowOp/ShowOp";
+import Connect from "./components/MYSQL/Connect";
+import Getdbdatas from "./components/MYSQL/Getdbdatas";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -13,11 +17,15 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline/>
         <div className="app">
-          <SideBar/>
+          {/* <SideBar/> */}
           <main className="content">
-            <Topbar/>
+            {/* <Topbar/> */}
             <Routes>
-            <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Language />} />
+              <Route path="/options" element={<ShowOp />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/connectinfo" element={<Connect />} />
+              <Route path="/getdbs" element={<Getdbdatas />} />
             </Routes>
           </main>
         </div>

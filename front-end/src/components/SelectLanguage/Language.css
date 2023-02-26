@@ -1,0 +1,106 @@
+.mysql:hover{
+    color: #fff;
+    background-color: #333652;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 5px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+    transform: scale(1.0);
+}
+
+.mysql {
+    position: relative;
+    overflow: hidden;
+    background-color: #FAD02C;
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 25px 0 25px 25px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 50px;
+    font-size: 12px;
+    font-family: sans-serif;
+  }
+  
+  /* .mysql:nth-child(1) { background: cornflowerblue; }
+  .mysql:nth-child(2) { background: salmon; }
+  .mysql:nth-child(3) { background: gray; } */
+  .mysql:after {
+    content: "";
+    position: absolute;
+    top: -110%;
+    left: -210%;
+    width: 200%;
+    height: 200%;
+    opacity: 0;
+    transform: rotate(30deg);
+    
+    background: rgba(255, 255, 255, 0.13);
+    background: linear-gradient(
+      to right, 
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(255, 255, 255, 0.13) 77%,
+      rgba(255, 255, 255, 0.5) 92%,
+      rgba(255, 255, 255, 0.0) 100%
+    );
+  }
+  
+  .mysql:hover:after {
+    opacity: 1;
+    top: -30%;
+    left: -30%;
+    transition-property: left, top, opacity;
+    transition-duration: 0.7s, 0.7s, 0.15s;
+    transition-timing-function: ease;
+  }
+  
+  mysql:active:after {
+    opacity: 0;
+  }
+
+  .button__lang{
+    position: relative;
+    overflow: hidden;
+    background-color: #FAD02C;
+    /* width: 50px; */
+    /* height: 50px; */
+    display: inline-block;
+    margin: 25px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 50px;
+    font-size: 12px;
+    padding: 2px 20px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .button__lang:hover{
+    color: #fff;
+    background-color: #333652;
+  }
+
+  .show__options{
+    background-color: #FFF;
+    min-width: 50vw;
+    min-height: 50vh;
+  }
+
+  .show__language__options{
+    position: absolute;
+    
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    margin: 0 auto;
+  }
